@@ -23,26 +23,42 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
             "assets": [
+              {
+                "glob":"**/*",
+                "input":"src/assets/",
+                "output":"assets/"
+              },
               "src/favicon.ico",
-              "src/assets"
+              "src/manifest.json"
             ],
             "styles": [
               "src/styles.css"
             ],
-            "scripts": []
+            "scripts": [
+              "src/app/beepify/beepify.js",
+              "src/app/beepify/sound/key/key-sound-1.js",
+              "src/app/beepify/sound/key/key-sound-2.js",
+              "src/app/beepify/sound/key/key-sound-3.js",
+              "src/app/beepify/sound/key/key-sound-4.js",
+              "src/app/beepify/sound/enter/enter-sound-1.js",
+              "src/app/beepify/sound/enter/enter-sound-2.js",
+              "src/app/beepify/sound/enter/enter-sound-3.js",
+              "src/app/beepify/sound/enter/enter-sound-4.js",
+              "src/app/beepify/sound/enter/enter-sound-5.js"
+            ]
           },
           "configurations": {
             "production": {
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kb",
-                  "maximumError": "1mb"
+                  "maximumWarning": "4mb",
+                  "maximumError": "5mb"
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "2kb",
-                  "maximumError": "4kb"
+                  "maximumWarning": "4mb",
+                  "maximumError": "5mb"
                 }
               ],
               "fileReplacements": [

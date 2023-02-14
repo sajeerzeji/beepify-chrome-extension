@@ -1,0 +1,38 @@
+{
+  "name": "Beepify",
+  "version": "1.0",
+  "description": "Make your keyboard actions more exciting",
+  "manifest_version": 3,
+  "icons": {
+    "19": "favicon.ico",
+    "48": "favicon.ico",
+    "128": "favicon.ico"
+  },
+  "action": {
+    "default_popup": "index.html",
+    "default_title": "Beepify"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://*/*", "http://*/*"],
+      "js": ["scripts.js"],
+      "runt_at": "document_end"
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "assets/sounds/key/1.mp3",
+        "assets/sounds/key/2.wav",
+        "assets/sounds/key/3.mp3",
+        "assets/sounds/key/4.wav",
+        "assets/sounds/enter/1.wav",
+        "assets/sounds/enter/2.wav",
+        "assets/sounds/enter/3.mp3",
+        "assets/sounds/enter/4.wav",
+        "assets/sounds/enter/5.wav"
+      ],
+      "matches": ["https://*/*", "http://*/*"]
+    }
+  ]
+}
