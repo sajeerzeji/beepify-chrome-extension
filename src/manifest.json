@@ -34,5 +34,8 @@
       ],
       "matches": ["https://*/*", "http://*/*"]
     }
+  ],
+  "permissions": [
+    "storage"
   ]
 }
