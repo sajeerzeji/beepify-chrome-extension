@@ -6,9 +6,18 @@ addEventListener('keydown', (event) => {
   }
 });
 
+addEventListener("visibilitychange", (event) => {
+  console.log('View changed');
+  dispatchEvent(new CustomEvent('beepifyFetchSoundRequest', {}));
+});
+
 addEventListener('click', (event) => {
   clickBeep();
 })
+
+addEventListener('beepifyFetchSoundResponse', (event) => {
+  console.log('Sound', event);
+});
 
 function keyBeep() {
   const sound = new Audio(keySound1());

@@ -25,6 +25,9 @@
       "matches": ["https://*/*", "http://*/*"]
     }
   ],
+  "externally_connectable": {
+      "matches": ["https://*/*", "http://*/*"]
+  },
   "permissions": [
     "storage"
   ]

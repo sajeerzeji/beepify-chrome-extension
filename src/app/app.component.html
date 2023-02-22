@@ -302,7 +302,6 @@
   }
 </style>
 
-<!-- Toolbar -->
 <div class="toolbar" role="banner">
   <img
     width="40"
@@ -313,6 +312,7 @@
 </div>
 
 <div class="content" role="main">
+  {{log}}
   <div style="width: 100%; display: flex;">
     <div style="width: 100%;">
       <div style="font-size: 18px; font-weight: normal; margin-bottom: 20px;">Key Sounds</div>
@@ -322,6 +322,33 @@
         <div class="selection-chip" [ngClass]="{'selection-chip-active': keySound === 'keySound2'}" (click)="selectSound('keySound', 'keySound2')">Sound 2</div>
         <div class="selection-chip" [ngClass]="{'selection-chip-active': keySound === 'keySound3'}" (click)="selectSound('keySound', 'keySound3')">Sound 3</div>
         <div class="selection-chip" [ngClass]="{'selection-chip-active': keySound === 'keySound4'}" (click)="selectSound('keySound', 'keySound4')">Sound 4</div>
+      </div>
+    </div>
+  </div>
+
+  <div style="width: 100%; display: flex; margin-top: 20px;">
+    <div style="width: 100%;">
+      <div style="font-size: 18px; font-weight: normal; margin-bottom: 20px;">Enter Sounds</div>
+      <div>
+        <div class="selection-chip" [ngClass]="{'selection-chip-active': enterSound === 'none'}" (click)="selectSound('enterSound', 'none')">No Sound</div>
+        <div class="selection-chip" [ngClass]="{'selection-chip-active': enterSound === 'enterSound1'}" (click)="selectSound('enterSound', 'enterSound1')">Sound 1</div>
+        <div class="selection-chip" [ngClass]="{'selection-chip-active': enterSound === 'enterSound2'}" (click)="selectSound('enterSound', 'enterSound2')">Sound 2</div>
+        <div class="selection-chip" [ngClass]="{'selection-chip-active': enterSound === 'enterSound3'}" (click)="selectSound('enterSound', 'enterSound3')">Sound 3</div>
+        <div class="selection-chip" [ngClass]="{'selection-chip-active': enterSound === 'enterSound4'}" (click)="selectSound('enterSound', 'enterSound4')">Sound 4</div>
+        <div class="selection-chip" [ngClass]="{'selection-chip-active': enterSound === 'enterSound5'}" (click)="selectSound('enterSound', 'enterSound5')">Sound 5</div>
+      </div>
+    </div>
+  </div>
+
+  <div style="width: 100%; display: flex; margin-top: 20px;">
+    <div style="width: 100%;">
+      <div style="font-size: 18px; font-weight: normal; margin-bottom: 20px;">Click Sounds</div>
+      <div>
+        <div class="selection-chip" [ngClass]="{'selection-chip-active': clickSound === 'none'}" (click)="selectSound('enterSound', 'none')">No Sound</div>
+        <div class="selection-chip" [ngClass]="{'selection-chip-active': clickSound === 'clickSound1'}" (click)="selectSound('clickSound', 'clickSound1')">Sound 1</div>
+        <div class="selection-chip" [ngClass]="{'selection-chip-active': clickSound === 'clickSound2'}" (click)="selectSound('clickSound', 'clickSound2')">Sound 2</div>
+        <div class="selection-chip" [ngClass]="{'selection-chip-active': clickSound === 'clickSound3'}" (click)="selectSound('clickSound', 'clickSound3')">Sound 3</div>
+        <div class="selection-chip" [ngClass]="{'selection-chip-active': clickSound === 'clickSound4'}" (click)="selectSound('clickSound', 'clickSound4')">Sound 4</div>
       </div>
     </div>
   </div>
