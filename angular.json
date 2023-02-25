@@ -29,7 +29,8 @@
                 "output":"assets/"
               },
               "src/favicon.ico",
-              "src/manifest.json"
+              "src/manifest.json",
+              "src/background.js"
             ],
             "styles": [
               "./node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css",

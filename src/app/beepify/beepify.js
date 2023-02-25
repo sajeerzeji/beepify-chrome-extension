@@ -1,3 +1,5 @@
+let fetchedSounds = undefined;
+
 addEventListener('keydown', (event) => {
   if (event.key === 'Enter') {
     enterBeep();
@@ -7,40 +9,54 @@ addEventListener('keydown', (event) => {
 });
 
 addEventListener("visibilitychange", (event) => {
-  console.log('View changed');
-  dispatchEvent(new CustomEvent('beepifyFetchSoundRequest', {}));
+  console.log('Visibility changed');
+  // chrome.storage.local.set({any: 1});
+  chrome.storage.local.get('any', (result) => {
+    console.log('result', result);
+    const newData = Number((result && result.any) ? result.any : 0) + 1;
+    chrome.storage.local.set({any: newData});
+    console.log('newData', newData);
+  });
+  navigator.serviceWorker.addEventListener("controllerchange", (evt) => {
+    console.log('Visibility changed');
+    navigator.serviceWorker.controller.postMessage({action: 'beepifyFetchSound'});
+  });
 });
 
 addEventListener('click', (event) => {
-  clickBeep();
+  if (!event.target?.attributes?.beepifyControl) {
+    clickBeep();
+  }
 })
 
-addEventListener('beepifyFetchSoundResponse', (event) => {
-  console.log('Sound', event);
+addEventListener('message', (event) => {
+  console.log('Message listener');
+  const data = event.data;
+  if (data?.action === 'beepifyFetchedSound') {
+    fetchedSounds = data.sounds;
+  }
 });
 
 function keyBeep() {
-  const sound = new Audio(keySound1());
-  // const sound = new Audio(keySound2());
-  // const sound = new Audio(keySound2());
-  // const sound = new Audio(keySound4());
-  sound.play();
+  if (fetchedSounds?.keySound?.sound) {
+    // const sound = new Audio(keySound1());
+    const sound = new Audio(fetchedSounds.keySound.sound);
+    sound.play();
+  }
 }
 
 function enterBeep() {
-  const sound = new Audio(enterSound1());
-  // const sound = new Audio(enterSound1());
-  // const sound = new Audio(enterSound2());
-  // const sound = new Audio(enterSound3());
-  // const sound = new Audio(enterSound4());
-  // const sound = new Audio(enterSound5());
-  sound.play();
+  if (fetchedSounds?.enterSound?.sound) {
+    const sound = new Audio(fetchedSounds.enterSound.sound);
+    // const sound = new Audio(enterSound1());
+    sound.play();
+  }
 }
 
 function clickBeep() {
-  const sound = new Audio(clickSound1());
-  // const sound = new Audio(clickSound2());
-  // const sound = new Audio(clickSound3());
-  // const sound = new Audio(clickSound4());
-  sound.play();
+  if (fetchedSounds?.clickSound?.sound) {
+    const sound = new Audio(fetchedSounds.clickSound.sound);
+    // const sound = new Audio(clickSound1());
+    sound.play();
+  }
 }
