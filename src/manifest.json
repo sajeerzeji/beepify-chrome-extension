@@ -1,7 +1,7 @@
 {
   "name": "Beepify",
   "version": "1.0",
-  "description": "Make your keyboard actions more exciting",
+  "description": "Make your browsing more exciting",
   "manifest_version": 3,
   "icons": {
     "19": "favicon.ico",
@@ -33,9 +33,5 @@
     "alarms",
     "tabs",
     "scripting"
-  ],
-  "background": {
-    "service_worker": "background.js",
-    "type": "module"
-  }
+  ]
 }

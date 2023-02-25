@@ -21,13 +21,13 @@ import './beepify/sound/click/click-sound-4';
 export class AppComponent implements OnInit {
   title = 'beepify-extension';
 
-  keySoundKey: 'none' | 'keySound1' | 'keySound2' | 'keySound3' | 'keySound4' = 'keySound1';
+  keySoundKey: any = 'none';
   keySound: any;
 
-  enterSoundKey: 'none' | 'enterSound1' | 'enterSound2' | 'enterSound3' | 'enterSound4' | 'enterSound5' = 'enterSound1';
+  enterSoundKey: any = 'none';
   enterSound: any;
 
-  clickSoundKey: 'none' | 'clickSound1' | 'clickSound2' | 'clickSound3' | 'clickSound4' = 'clickSound1';
+  clickSoundKey: any = 'none';
   clickSound: any;
 
   keySounds = [
@@ -122,45 +122,19 @@ export class AppComponent implements OnInit {
   log: any;
 
   constructor() {
-    this.addEventListeners();
+    this.fetchAllSounds();
   }
 
   ngOnInit(): void {
-    // @ts-ignore
-    chrome.storage.local.get('any', (result: any) => {
-      const newData = Number((result && result.any) ? result.any : 0) + 1;
-      // @ts-ignore
-      chrome.storage.local.set({any: newData});
-      throw new Error('newData ' + newData);
-    });
-    // @ts-ignore
-    this.getFromStorage();
   }
 
-  addEventListeners() {
-    addEventListener('message', (event) => {
-      throw new Error('Message listener');
-      const data = event.data;
-      if (data.action === 'beepifyFetchedSound') {
-        const sounds = data.sounds;
-        const keySound = sounds.keySound;
-        const enterSound = sounds.enterSound;
-        const clickSound = sounds.clickSound;
-        if (keySound) {
-          this.keySoundKey = keySound.key;
-        }
-        if (enterSound) {
-          this.enterSoundKey = enterSound.key;
-        }
-        if (clickSound) {
-          this.clickSoundKey = clickSound.key;
-        }
-      }
-    })
+  fetchAllSounds() {
+    this.getFromStorage('keySound');
+    this.getFromStorage('enterSound');
+    this.getFromStorage('clickSound');
   }
 
   selectSound(type: any, key: any, sound: any, targetElement: any) {
-    console.log(targetElement?.attributes?.beepifyControl);
     if (type === 'keySound') {
       this.keySoundKey = key;
     }
@@ -177,7 +151,7 @@ export class AppComponent implements OnInit {
         }, 100);
         this.setToStorage(type, {key, sound: sound});
         setTimeout(() => {
-          this.getFromStorage();
+          this.fetchAllSounds();
         }, 100)
       }
     }
@@ -190,11 +164,25 @@ export class AppComponent implements OnInit {
   setToStorage(key: any, value: any) {
     const data: any = {};
     data[key] = value;
-    navigator?.serviceWorker?.controller?.postMessage({action: 'beepifySaveSound', data});
+    // @ts-ignore
+    chrome.storage.local.set(data);
   }
 
-  getFromStorage(): any {
-    navigator?.serviceWorker?.controller?.postMessage({action: 'beepifyFetchSound'});
+  getFromStorage(key: any): any {
+    // @ts-ignore
+    chrome.storage.local.get(key, (result: any) => {
+      if (key === 'keySound' && result?.keySound?.key) {
+        setTimeout(() => {
+          this.keySoundKey = result?.keySound?.key ?? 'none';
+        }, 1000);
+      }
+      if (key === 'enterSound' && result?.enterSound?.key) {
+        this.enterSoundKey = result?.enterSound?.key ?? 'none';
+      }
+      if (key === 'clickSound' && result?.clickSound?.key) {
+        this.clickSoundKey = result?.clickSound?.key ?? 'none';
+      }
+    });
   }
 
   getChrome(key: string, defaults = {}): Promise<any> {

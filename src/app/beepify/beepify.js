@@ -9,18 +9,9 @@ addEventListener('keydown', (event) => {
 });
 
 addEventListener("visibilitychange", (event) => {
-  console.log('Visibility changed');
-  // chrome.storage.local.set({any: 1});
-  chrome.storage.local.get('any', (result) => {
-    console.log('result', result);
-    const newData = Number((result && result.any) ? result.any : 0) + 1;
-    chrome.storage.local.set({any: newData});
-    console.log('newData', newData);
-  });
-  navigator.serviceWorker.addEventListener("controllerchange", (evt) => {
-    console.log('Visibility changed');
-    navigator.serviceWorker.controller.postMessage({action: 'beepifyFetchSound'});
-  });
+  fetchSound('keySound');
+  fetchSound('enterSound');
+  fetchSound('clickSound');
 });
 
 addEventListener('click', (event) => {
@@ -28,14 +19,6 @@ addEventListener('click', (event) => {
     clickBeep();
   }
 })
-
-addEventListener('message', (event) => {
-  console.log('Message listener');
-  const data = event.data;
-  if (data?.action === 'beepifyFetchedSound') {
-    fetchedSounds = data.sounds;
-  }
-});
 
 function keyBeep() {
   if (fetchedSounds?.keySound?.sound) {
@@ -60,3 +43,30 @@ function clickBeep() {
     sound.play();
   }
 }
+
+function fetchSound(key) {
+  chrome.storage.local.get(key, (result) => {
+    fetchedSounds = !fetchedSounds ? {} : fetchedSounds;
+    console.log('key', key);
+    console.log('result', result);
+    if (key === 'keySound' && result.keySound && result.keySound.key) {
+      fetchedSounds.keySound = result.keySound;
+    }
+    if (key === 'enterSound' && result.enterSound && result.enterSound.key) {
+      fetchedSounds.enterSound = result.enterSound;
+    }
+    if (key === 'clickSound' && result.clickSound && result.clickSound.key) {
+      fetchedSounds.clickSound = result.clickSound;
+    }
+  });
+}
+
+chrome.storage.onChanged.addListener((changes, namespace) => {
+  fetchSound('keySound');
+  fetchSound('enterSound');
+  fetchSound('clickSound');
+});
+
+fetchSound('keySound');
+fetchSound('enterSound');
+fetchSound('clickSound');
