@@ -307,9 +307,8 @@
   <div style="width: 100%; display: flex;" *ngIf="keySounds?.length">
     <div style="width: 100%;">
       <div style="font-size: 18px; font-weight: normal; margin-bottom: 20px;">Key Sounds</div>
-      <div>{{keySoundKey}}</div>
       <div>
-        <div class="selection-chip" beepifyControl="true" [ngClass]="{'selection-chip-active': keySoundKey === sound.key}" (click)="selectSound('keySound', sound.key, sound.sound, $event.target)" *ngFor="let sound of keySounds">{{sound.label}}</div>
+        <div class="selection-chip" beepifyControl="true" [id]="sound.key" [ngClass]="{'key-sound-selector': true, 'selection-chip-active': keySoundKey === sound.key}" (click)="selectSound('keySound', sound.key, sound.sound, $event.target)" *ngFor="let sound of keySounds">{{sound.label}}</div>
       </div>
     </div>
   </div>
@@ -317,9 +316,8 @@
   <div style="width: 100%; display: flex; margin-top: 20px;">
     <div style="width: 100%;">
       <div style="font-size: 18px; font-weight: normal; margin-bottom: 20px;">Enter Sounds</div>
-      <div>{{enterSoundKey}}</div>
       <div>
-        <div class="selection-chip" beepifyControl="true" [ngClass]="{'selection-chip-active': enterSoundKey === sound.key}" (click)="selectSound('enterSound', sound.key, sound.sound, $event.target)" *ngFor="let sound of enterSounds">{{sound.label}}</div>
+        <div class="selection-chip" beepifyControl="true" [id]="sound.key" [ngClass]="{'enter-sound-selector': true, 'selection-chip-active': enterSoundKey === sound.key}" (click)="selectSound('enterSound', sound.key, sound.sound, $event.target)" *ngFor="let sound of enterSounds">{{sound.label}}</div>
       </div>
     </div>
   </div>
@@ -327,9 +325,8 @@
   <div style="width: 100%; display: flex; margin-top: 20px;">
     <div style="width: 100%;">
       <div style="font-size: 18px; font-weight: normal; margin-bottom: 20px;">Click Sounds</div>
-      <div>{{clickSoundKey}}</div>
       <div>
-        <div class="selection-chip" beepifyControl="true" [ngClass]="{'selection-chip-active': clickSoundKey === sound.key}" (click)="selectSound('clickSound', sound.key, sound.sound, $event.target)" *ngFor="let sound of clickSounds">{{sound.label}}</div>
+        <div class="selection-chip" beepifyControl="true" [id]="sound.key" [ngClass]="{'click-sound-selector': true, 'selection-chip-active': clickSoundKey === sound.key}" (click)="selectSound('clickSound', sound.key, sound.sound, $event.target)" *ngFor="let sound of clickSounds">{{sound.label}}</div>
       </div>
     </div>
   </div>

@@ -172,15 +172,28 @@ export class AppComponent implements OnInit {
     // @ts-ignore
     chrome.storage.local.get(key, (result: any) => {
       if (key === 'keySound' && result?.keySound?.key) {
-        setTimeout(() => {
-          this.keySoundKey = result?.keySound?.key ?? 'none';
-        }, 1000);
+        Array.from(document.querySelectorAll('.key-sound-selector')).forEach((el) => el.classList.remove('selection-chip-active'));
+        this.keySoundKey = result?.keySound?.key ?? 'none';
+        const soundSelectorElement = document.getElementById(this.keySoundKey);
+        if (soundSelectorElement) {
+          soundSelectorElement.className = soundSelectorElement.className + ' selection-chip-active';
+        }
       }
       if (key === 'enterSound' && result?.enterSound?.key) {
+        Array.from(document.querySelectorAll('.enter-sound-selector')).forEach((el) => el.classList.remove('selection-chip-active'));
         this.enterSoundKey = result?.enterSound?.key ?? 'none';
+        const soundSelectorElement = document.getElementById(this.enterSoundKey);
+        if (soundSelectorElement) {
+          soundSelectorElement.className = soundSelectorElement.className + ' selection-chip-active';
+        }
       }
       if (key === 'clickSound' && result?.clickSound?.key) {
+        Array.from(document.querySelectorAll('.click-sound-selector')).forEach((el) => el.classList.remove('selection-chip-active'));
         this.clickSoundKey = result?.clickSound?.key ?? 'none';
+        const soundSelectorElement = document.getElementById(this.clickSoundKey);
+        if (soundSelectorElement) {
+          soundSelectorElement.className = soundSelectorElement.className + ' selection-chip-active';
+        }
       }
     });
   }
