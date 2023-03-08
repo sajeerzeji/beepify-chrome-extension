@@ -50,7 +50,8 @@
               "src/app/beepify/sound/click/click-sound-1.js",
               "src/app/beepify/sound/click/click-sound-2.js",
               "src/app/beepify/sound/click/click-sound-3.js",
-              "src/app/beepify/sound/click/click-sound-4.js"
+              "src/app/beepify/sound/click/click-sound-4.js",
+              "src/app/beepify/sound/chatGPT/chatGPT-sound-1.js"
             ]
           },
           "configurations": {

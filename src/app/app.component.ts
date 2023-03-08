@@ -12,6 +12,7 @@ import './beepify/sound/click/click-sound-1';
 import './beepify/sound/click/click-sound-2';
 import './beepify/sound/click/click-sound-3';
 import './beepify/sound/click/click-sound-4';
+import './beepify/sound/chatGPT/chatGPT-sound-1';
 
 @Component({
   selector: 'app-root',
@@ -29,6 +30,9 @@ export class AppComponent implements OnInit {
 
   clickSoundKey: any = 'none';
   clickSound: any;
+
+  chatGPTSoundKey: any = 'none';
+  chatGPTSound: any;
 
   keySounds = [
     {
@@ -119,6 +123,19 @@ export class AppComponent implements OnInit {
     }
   ];
 
+  chatGPTSounds = [
+    {
+      key: 'none',
+      label: 'No Sound',
+      sound: undefined
+    },
+    {
+      key: 'chatGPTSound1',
+      label: 'Sound 1',
+      sound: chatGPTSound1(),
+    }
+  ];
+
   log: any;
 
   constructor() {
@@ -132,6 +149,7 @@ export class AppComponent implements OnInit {
     this.getFromStorage('keySound');
     this.getFromStorage('enterSound');
     this.getFromStorage('clickSound');
+    this.getFromStorage('chatGPTSound');
   }
 
   selectSound(type: any, key: any, sound: any, targetElement: any) {
@@ -144,11 +162,15 @@ export class AppComponent implements OnInit {
     if (type === 'clickSound') {
       this.clickSoundKey = key;
     }
+    if (type === 'chatGPTSound') {
+      this.chatGPTSoundKey = key;
+    }
     if (key !== 'none') {
       if (sound) {
         setTimeout(() => {
           this.playSound(sound);
         }, 100);
+        console.log('sound', {key, sound: sound});
         this.setToStorage(type, {key, sound: sound});
         setTimeout(() => {
           this.fetchAllSounds();
@@ -191,6 +213,14 @@ export class AppComponent implements OnInit {
         Array.from(document.querySelectorAll('.click-sound-selector')).forEach((el) => el.classList.remove('selection-chip-active'));
         this.clickSoundKey = result?.clickSound?.key ?? 'none';
         const soundSelectorElement = document.getElementById(this.clickSoundKey);
+        if (soundSelectorElement) {
+          soundSelectorElement.className = soundSelectorElement.className + ' selection-chip-active';
+        }
+      }
+      if (key === 'chatGPTSound' && result?.chatGPTSound?.key) {
+        Array.from(document.querySelectorAll('.chatGPT-sound-selector')).forEach((el) => el.classList.remove('selection-chip-active'));
+        this.chatGPTSoundKey = result?.chatGPTSound?.key ?? 'none';
+        const soundSelectorElement = document.getElementById(this.chatGPTSoundKey);
         if (soundSelectorElement) {
           soundSelectorElement.className = soundSelectorElement.className + ' selection-chip-active';
         }

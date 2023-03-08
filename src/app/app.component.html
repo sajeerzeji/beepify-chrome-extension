@@ -330,4 +330,13 @@
       </div>
     </div>
   </div>
+
+  <!--<div style="width: 100%; display: flex; margin-top: 20px;">
+    <div style="width: 100%;">
+      <div style="font-size: 18px; font-weight: normal; margin-bottom: 20px;">Open AI Chat Sounds</div>
+      <div>
+        <div class="selection-chip" beepifyControl="true" [id]="sound.key" [ngClass]="{'chatGPT-sound-selector': true, 'selection-chip-active': chatGPTSoundKey === sound.key}" (click)="selectSound('chatGPTSound', sound.key, sound.sound, $event.target)" *ngFor="let sound of chatGPTSounds">{{sound.label}}</div>
+      </div>
+    </div>
+  </div>-->
 </div>
