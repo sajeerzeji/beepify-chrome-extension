@@ -47,8 +47,6 @@ function clickBeep() {
 function fetchSound(key) {
   chrome.storage.local.get(key, (result) => {
     fetchedSounds = !fetchedSounds ? {} : fetchedSounds;
-    console.log('key', key);
-    console.log('result', result);
     if (key === 'keySound' && result.keySound && result.keySound.key) {
       fetchedSounds.keySound = result.keySound;
     }
